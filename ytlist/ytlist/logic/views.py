@@ -57,6 +57,7 @@ class VideoAPIView(View):
         return HttpResponse(response)
 
 def delete_video(request, id):
+    """Implements DELETE for the video API described in the README."""
     if request.method == 'DELETE':
         v = Video.objects.get(id=id)
         v.delete()
