@@ -14,6 +14,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'ytlist.logic',
+    'ytlist.ui',
 )
 
 MIDDLEWARE_CLASSES = (
