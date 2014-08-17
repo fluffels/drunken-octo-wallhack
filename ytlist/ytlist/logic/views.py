@@ -3,6 +3,8 @@ import json
 from django.http import HttpResponse
 from django.views.generic import View
 
+from .models import Video
+
 class VideoAPIView(View):
     """Implements the video API described in the README."""
     http_method_names = ['get', 'post', 'delete']
@@ -29,10 +31,18 @@ class VideoAPIView(View):
             json_data = request.POST["data"]
 
             try:
-                video = json.loads(json_data)
+                data = json.loads(json_data)
             except Exception as e:
                 return self.error(2, "Error while parsing JSON string '{}': {}".
                                       format(json_data, e))
-
-            return self.success()
+            if "url" in data:
+                video = Video()
+                video.url = data["url"]
+                if "description" in data:
+                    video.description = data["description"]
+                video.save()
+                return self.success()
+            else:
+                return self.error(3, "No url found in JSON string '{}'.".
+                                      format(json_data))
 
