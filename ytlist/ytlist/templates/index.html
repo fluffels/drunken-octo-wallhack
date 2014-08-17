@@ -12,29 +12,16 @@
 
         {% load gears %}
         {% js_asset_tag "js/main.js" %}
+
+        {% include "video-template.html" %}
     </head>
     <body>
         <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
-        {% if videos %}
-        <ul>
-        {% for video in videos %}
-            <li>
-                <a href="{{ video.url }}">
-                    {% if video.description %}
-                    {{ video.description }}
-                    {% else %}
-                    {{ video.url }}
-                    {% endif %}
-                </a>
-            </li>
-        {% endfor %}
-        </ul>
-        {% else %}
-        <h1>No videos have been added yet.</h1>
-        {% endif %}
+        <div id="content">
+        </div>
 
     </body>
 </html>
