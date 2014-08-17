@@ -1,0 +1,76 @@
+@import "bootstrap/bootstrap.less";
+
+body
+{
+    padding: 1in, 1in, 1in, 1in;
+}
+
+div#container
+{
+    .container;
+    padding-top: 1em;
+}
+
+input[type="text"],
+textarea
+{
+    .form-control;
+}
+
+textarea
+{
+    height: 10ex;
+}
+
+input#submit-button
+{
+    .btn;
+    .btn-primary;
+}
+
+input.delete-button
+{
+    .btn;
+    .btn-danger;
+}
+
+label.control-label
+{
+    .make-sm-column(2);
+}
+
+div.button-container
+{
+    .make-sm-column-offset(2);
+    .make-sm-column(10);
+}
+
+div.control-container
+{
+    .make-sm-column(10);
+}
+
+div#add-messages
+{
+    .make-sm-column-offset(2);
+    .make-sm-column(10);
+}
+
+div#add-messages > p
+{
+    .text-danger;
+}
+
+li
+{
+    margin-top: 1em;
+    margin-bottom: 1em;
+
+    font-size: 150%;
+}
+
+li.video > p
+{
+    .text-danger;
+    display: inline;
+}

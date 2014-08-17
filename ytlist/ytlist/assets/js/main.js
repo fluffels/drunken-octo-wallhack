@@ -7,10 +7,9 @@
 function add_video(video)
 {
     var template = Handlebars.compile($("#video-template").html());
-    var div = $("div#content");
     var html = template(video);
-    $(html).hide().appendTo(div).fadeIn(1000);
-    $("a#video-delete-link-" + video.id).click(function(e) {
+    $(html).hide().appendTo($("#videos")).fadeIn(1000);
+    $("#video-delete-" + video.id).click(function(e) {
         e.preventDefault();
         $.ajax("/videos/" + video.id + "/", {
             type: "DELETE",
@@ -18,7 +17,8 @@ function add_video(video)
                 $("#video-" + video.id).hide("slow");
             },
             error: function(e) {
-                div.append("<p class='error'>Could not contact the server.</p>");
+                $("#video-" + video.id).
+                    append("<p>Could not contact the server.</p>");
             }
         });
     });
@@ -46,27 +46,34 @@ $(document).ready(function() {
             }
         },
         error: function() {
-            var div = $("div#messages");
-            div.append("<h1>Failure!</h1");
+            var div = $("div#videos");
+            div.append("<h1>Critical Failure</h1>");
             div.append("<p>Could not contact the server.</p>");
         }
     });
 
-    $("#submit").click(function() {
+    $("#submit-button").click(function() {
         var url_value = $("#url").val();
         var desc_value = $("#desc").val();
         var obj = {url: url_value, description: desc_value};
         var post_data = "data=" + JSON.stringify(obj);
-        $.post("/videos/", post_data, function(msg) {
-            var message = $.parseJSON(msg);
-            if (message.status === 0)
-            {
-                obj.id = messages.message;
-                $("div#content").append(add_video(obj));
-            }
-            else
-            {
-                $("div#messages").append("<p class='error'>Could not post video: " + message.message + "</p>");
+        $.ajax("/videos/", {
+            type: 'POST',
+            data: post_data,
+            success: function(msg) {
+                var message = $.parseJSON(msg);
+                if (message.status === 0)
+                {
+                    obj.id = message.message;
+                    $("div#content").append(add_video(obj));
+                }
+                else
+                {
+                    $("div#add-messages").append("<p>Could not post video: " + message.message + "</p>");
+                }
+            },
+            error: function(msg) {
+                $("div#add-messages").append("<p>Could not contact the server.</p>");
             }
         });
     });

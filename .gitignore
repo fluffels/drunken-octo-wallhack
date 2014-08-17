@@ -54,3 +54,7 @@ static/
 # Sphinx documentation
 docs/_build/
 
+# Gears stuff:
+.csscomb.json
+.csslintrc
+
