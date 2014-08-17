@@ -46,3 +46,12 @@ class VideoAPIView(View):
                 return self.error(3, "No url found in JSON string '{}'.".
                                       format(json_data))
 
+    def get(self, request, *args, **kwargs):
+        """Handle GET requests."""
+
+        videos = Video.objects.all()
+        data = [{"url": o.url, "description": o.description} for o in videos]
+        response = json.dumps(data)
+
+        return HttpResponse(response)
+

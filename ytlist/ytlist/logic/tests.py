@@ -47,3 +47,8 @@ class VideoAPITestCase(TestCase):
         message = json.loads(response.content)
         self.assertEqual(message['status'], 3)
 
+    def test_get(self):
+        response = self.client.get('/videos/')
+        self.assertEqual(response.content,
+                         '[{"url": "retrieve", "description": ""}]')
+
