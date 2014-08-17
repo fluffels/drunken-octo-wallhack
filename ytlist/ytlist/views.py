@@ -13,10 +13,10 @@ def error(status, message):
     error = {"status": status, "message": message}
     return HttpResponse(json.dumps(error))
 
-def success():
+def success(message=""):
     """Return a success message formatted as a JSON object."""
 
-    success = {"status": 0, "message": ""}
+    success = {"status": 0, "message": message}
     return HttpResponse(json.dumps(success))
 
 class IndexView(TemplateView):
@@ -51,7 +51,7 @@ class VideoAPIView(View):
                 if "description" in data:
                     video.description = data["description"]
                 video.save()
-                return success()
+                return success(video.id)
             else:
                 return error(3, "No url found in JSON string '{}'.".
                                  format(json_data))
