@@ -3,6 +3,7 @@ import json
 from django.http import HttpResponse
 from django.http import HttpResponseForbidden
 from django.views.generic import View
+from django.views.generic.base import TemplateView
 
 from .models import Video
 
@@ -17,6 +18,14 @@ def success():
 
     success = {"status": 0, "message": ""}
     return HttpResponse(json.dumps(success))
+
+class IndexView(TemplateView):
+    template_name = "index.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(IndexView, self).get_context_data(**kwargs)
+        context['videos'] = Video.objects.all()
+        return context
 
 class VideoAPIView(View):
     """Implements GET and POST for the video API described in the README."""

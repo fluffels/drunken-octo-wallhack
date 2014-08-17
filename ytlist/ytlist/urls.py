@@ -3,9 +3,9 @@ from django.conf.urls import patterns, include, url
 from django.contrib import admin
 admin.autodiscover()
 
-from ytlist.logic.views import VideoAPIView
-from ytlist.logic.views import delete_video
-from ytlist.ui.views import IndexView
+from views import VideoAPIView
+from views import delete_video
+from views import IndexView
 
 urlpatterns = patterns('',
     url(r'^$', IndexView.as_view()),
