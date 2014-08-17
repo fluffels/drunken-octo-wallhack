@@ -1,6 +1,7 @@
 import json
 
 from django.http import HttpRequest
+from django.http import HttpResponseForbidden
 from django.test import TestCase
 from django.test import Client
 
@@ -51,4 +52,19 @@ class VideoAPITestCase(TestCase):
         response = self.client.get('/videos/')
         self.assertEqual(response.content,
                          '[{"url": "retrieve", "description": ""}]')
+
+    def test_forbidden(self):
+        response = self.client.get('/videos/1/')
+        self.assertIsInstance(response, HttpResponseForbidden)
+
+    def test_delete(self):
+        v2 = Video()
+        v2.url = "delete"
+        v2.save()
+
+        response = self.client.delete('/videos/{}/'.format(v2.id))
+        message = json.loads(response.content)
+        self.assertEqual(message['status'], 0)
+
+        self.assertRaises(Video.DoesNotExist, Video.objects.get, url="delete")
 
