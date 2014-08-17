@@ -20,14 +20,18 @@ class VideoAPITestCase(TestCase):
         v = Video.objects.get(url="retrieve")
 
     def test_post_success(self):
-        response = self.client.post('/videos/', {'data': '{"url": "test"}'})
+        url = "https://www.youtube.com/watch?v=5nD-8euqNN4"
+        data = '{{"url": "{}"}}'.format(url)
+        response = self.client.post('/videos/', {'data': data})
         message = json.loads(response.content)
         self.assertEqual(message['status'], 0)
 
     def test_post_save(self):
-        response = self.client.post('/videos/', {'data': '{"url": "test2"}'})
+        url = "https://www.youtube.com/watch?v=5nD-8euqNN4"
+        data = '{{"url": "{}"}}'.format(url)
+        response = self.client.post('/videos/', {'data': data})
         message = json.loads(response.content)
-        Video.objects.get(url="test2")
+        Video.objects.get(url=url)
 
     def test_post_save_fail(self):
         self.assertRaises(Video.DoesNotExist, Video.objects.get, url="none")

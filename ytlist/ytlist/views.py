@@ -1,5 +1,7 @@
 import json
 
+from django.core.exceptions import ValidationError
+from django.core.validators import URLValidator
 from django.http import HttpResponse
 from django.http import HttpResponseForbidden
 from django.views.generic import View
@@ -46,6 +48,11 @@ class VideoAPIView(View):
                 return error(2, "Error while parsing JSON string '{}': {}".
                                  format(json_data, e))
             if "url" in data:
+                validate_url = URLValidator()
+                try:
+                    validate_url(data["url"])
+                except ValidationError as e:
+                    return error(5, ("Incorrect URL format."))
                 video = Video()
                 video.url = data["url"]
                 if "description" in data:
