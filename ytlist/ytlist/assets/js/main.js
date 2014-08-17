@@ -10,7 +10,6 @@ function add_video(video)
     var div = $("div#content");
     var html = template(video);
     $(html).hide().appendTo(div).fadeIn(1000);
-    console.log(template(video));
     $("a#video-delete-link-" + video.id).click(function(e) {
         e.preventDefault();
         $.ajax("/videos/" + video.id + "/", {
