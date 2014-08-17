@@ -51,7 +51,7 @@ class VideoAPITestCase(TestCase):
     def test_get(self):
         response = self.client.get('/videos/')
         self.assertEqual(response.content,
-                         '[{"url": "retrieve", "description": ""}]')
+                         '[{"url": "retrieve", "id": 1, "description": ""}]')
 
     def test_forbidden(self):
         response = self.client.get('/videos/1/')

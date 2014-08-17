@@ -60,7 +60,7 @@ class VideoAPIView(View):
         """Handle GET requests."""
 
         videos = Video.objects.all()
-        data = [{"url": o.url, "description": o.description} for o in videos]
+        data = [{"id": o.id, "url": o.url, "description": o.description} for o in videos]
         response = json.dumps(data)
 
         return HttpResponse(response)

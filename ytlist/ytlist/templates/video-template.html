@@ -1,7 +1,8 @@
 {% verbatim %}
 <script id="video-template" type="text/x-handlebards-template">
-    <li>
-        <a href="{{url}}">{{description}}</a>
+    <li id="video-{{id}}">
+        <a id="video-link-{{id}}" href="{{url}}">{{description}}</a>
+        <a id="video-delete-link-{{id}}" href="#">delete</a>
     </li>
 </script>
 {% endverbatim %}
