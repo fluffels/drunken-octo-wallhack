@@ -74,7 +74,7 @@ $(document).ready(function() {
 
     $("#submit-button").click(function() {
         var url_value = $("#url").val();
-        var re = RegExp("v=(.+)");
+        var re = RegExp("v=(.+)[$|&]");
         var match = re.exec(url_value);
 
         if (match)
