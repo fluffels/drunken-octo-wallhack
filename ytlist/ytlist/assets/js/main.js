@@ -24,7 +24,9 @@ function add_video(video)
         $.ajax("/videos/" + video.id + "/", {
             type: "DELETE",
             success: function(e) {
-                $("#video-" + video.id).hide("slow");
+                $("#video-" + video.id).hide("slow", function() {
+                    $(this).remove();
+                });
             },
             error: function(e) {
                 $("#video-" + video.id).
