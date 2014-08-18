@@ -13,29 +13,37 @@ Function        | Resource        | HTTP Method   | Data                        
 List videos.    | /video/         | GET           | None.                         | A list of video details in JSON format.
 Add video.      | /video/         | POST          | Video details in JSON format. | A status in JSON format.
 Delete video.   | /video/id/      | DELETE        | None.                         | A status in JSON format.
+Get one video.  | /video/id/      | GET           | None.                         | A video's details in JSON format.
 
-Video details example:
-----------------------
-As received from GET /video/:
+JSON format returned from GET endpoints:
+----------------------------------------
 ```javascript
-{'id': 1, 'description': "Some desription.", 'url': "http://youtube.com/watch?v=XXXXXXX"}
+{"id": 1, "title": "Some title.", "description": "Some desription.", "url": "XXXXXXX"}
 ```
 
-As sent to POST /video/:
+The "url" element above is just the YouTube video id part.
+
+JSON format expected by POST endpoint:
+--------------------------------------
 ```javascript
-{'url': "http://youtube.com/watch?v=XXXXXXX"}
+{"url": "XXXXXXX"}
 ```
+
+The "url" element above is just the YouTube video id part.
+The rest will be figured out by the back end.
 
 Status example:
 ---------------
 
 Success:
 ```javascript
-{'status': 0, 'message': ""}
+{"status": 0, "message": ""}
 ```
+
+In the case of the POST endpoint, the message will be the id of the video that was added.
 
 Error:
 ```javascript
-{'status': 1, "Database not reachable."}
+{"status": 1, "Database not reachable."}
 ```
 
