@@ -1,5 +1,5 @@
-drunken-octo-wallhack
-=====================
+ytlist
+======
 
 This project implements a REST API for managing a list of YouTube videos.
 The API is documented below.
