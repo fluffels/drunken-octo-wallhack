@@ -42,8 +42,10 @@ function add_video_by_id(id)
     });
 }
 
-$(document).ready(function() {
+function setup_csrf()
+{
     var csrftoken = $.cookie('csrftoken');
+
     $.ajaxSetup({
         beforeSend: function(xhr, settings) {
             if (!/^(GET|HEAD|OPTIONS|TRACE)$/.test(settings.type)
@@ -52,6 +54,10 @@ $(document).ready(function() {
             }
         }
     });
+}
+
+$(document).ready(function() {
+    setup_csrf();
 
     $.ajax("/videos/", {
         type: "GET",
