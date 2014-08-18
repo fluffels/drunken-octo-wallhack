@@ -19,7 +19,7 @@ env.symlinks = [{'src': join(env.bower_dir, 'bootstrap/less/'),
                  'dst': join(env.assets_dir, 'css/bootstrap')},
                 {'src': join(env.bower_dir, 'jquery/dist/jquery.js'),
                  'dst': join(env.assets_dir, 'js/jquery.js')},
-                {'src': join(env.bower_dir, 'jquery.cookie/jquery.cookie.js'),
+                {'src': join(env.bower_dir, 'jquery-cookie/jquery.cookie.js'),
                  'dst': join(env.assets_dir, 'js/jquery.cookie.js')},
                 {'src': join(env.bower_dir, 'handlebars/handlebars.js'),
                  'dst': join(env.assets_dir, 'js/handlebars.js')}]
