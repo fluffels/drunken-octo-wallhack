@@ -47,3 +47,17 @@ Error:
 {"status": 1, "Database not reachable."}
 ```
 
+Installation
+============
+
+```fab install``` should do it. The installation requires:
+* fabric (tested with v1.9.1),
+* virtualenv (tested with v.1.11.5), and
+* npm (tested with v.1.3.11).
+
+Execution
+=========
+
+Execution is through the Django development server and sqlite3, for ease of deployment.
+```fab run``` should be all that's required.
+
