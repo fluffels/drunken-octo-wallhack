@@ -4,25 +4,23 @@
  *= require handlebars
  */
 
-function on_video_link_click(e)
-{
-    e.preventDefault();
-    
-    var id = e.delegateTarget.getAttribute("data-youtube-id");
-    player.loadVideoById(id);
-}
-
 function add_video(video)
 {
     video.description = video.description.split("\n")[0];
+
     var template = Handlebars.compile($("#video-template").html());
     var html = template(video);
+
     $(html).hide().appendTo($("#video-list")).fadeIn(1000);
 
-    $("#video-link-" + video.id).click(on_video_link_click);
+    $("#video-link-" + video.id).click(function(e) {
+        e.preventDefault();
+        player.loadVideoById(video.url);
+    });
 
     $("#video-delete-" + video.id).click(function(e) {
         e.preventDefault();
+
         $.ajax("/videos/" + video.id + "/", {
             type: "DELETE",
             success: function(e) {
