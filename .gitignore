@@ -58,3 +58,12 @@ docs/_build/
 .csscomb.json
 .csslintrc
 
+# Installation stuff:
+jquery.js
+jquery.cookie.js
+handlebars.js
+bootstrap
+bower_components/
+node_modules/
+venv/
+
