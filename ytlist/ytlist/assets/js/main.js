@@ -69,8 +69,7 @@ function load_all_videos()
             }
         },
         error: function() {
-            var div = $("div#video-list");
-            div.append("<h1>Critical Failure</h1>");
+            var div = $("div#messages");
             div.append("<p>Could not contact the server.</p>");
         }
     });
