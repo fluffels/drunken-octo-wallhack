@@ -1,5 +1,6 @@
 @import "bootstrap/bootstrap.less";
 
+/* High-level structural elements. */
 body
 {
     padding: 1in, 1in, 1in, 1in;
@@ -28,6 +29,24 @@ div#player
     .make-md-column(6);
 }
 
+div#add-messages
+{
+    .make-sm-column-offset(2);
+    .make-sm-column(10);
+}
+
+div.button-container
+{
+    .make-sm-column-offset(2);
+    .make-sm-column(10);
+}
+
+div.control-container
+{
+    .make-sm-column(10);
+}
+
+/* Form stuff. */
 input[type="text"],
 textarea
 {
@@ -56,23 +75,7 @@ label.control-label
     .make-sm-column(2);
 }
 
-div.button-container
-{
-    .make-sm-column-offset(2);
-    .make-sm-column(10);
-}
-
-div.control-container
-{
-    .make-sm-column(10);
-}
-
-div#add-messages
-{
-    .make-sm-column-offset(2);
-    .make-sm-column(10);
-}
-
+/* Text stuff. */
 li
 {
     margin-top: 1em;
