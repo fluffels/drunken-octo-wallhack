@@ -4,11 +4,29 @@
  *= require handlebars
  */
 
+function on_video_link_click(e)
+{
+    e.preventDefault();
+    
+    var url = e.delegateTarget.getAttribute("href");
+    var re = RegExp("v=(.+)");
+    var match = re.exec(url);
+
+    if (match)
+    {
+        console.log(match[1]);
+        player.loadVideoById(match[1]);
+    }
+}
+
 function add_video(video)
 {
     var template = Handlebars.compile($("#video-template").html());
     var html = template(video);
-    $(html).hide().appendTo($("#videos")).fadeIn(1000);
+    $(html).hide().appendTo($("#video-list")).fadeIn(1000);
+
+    $("#video-link-" + video.id).click(on_video_link_click);
+
     $("#video-delete-" + video.id).click(function(e) {
         e.preventDefault();
         $.ajax("/videos/" + video.id + "/", {
@@ -46,7 +64,7 @@ $(document).ready(function() {
             }
         },
         error: function() {
-            var div = $("div#videos");
+            var div = $("div#video-list");
             div.append("<h1>Critical Failure</h1>");
             div.append("<p>Could not contact the server.</p>");
         }
