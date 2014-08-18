@@ -55,6 +55,10 @@ $(document).ready(function() {
     $("#submit-button").click(function() {
         var url_value = $("#url").val();
         var desc_value = $("#desc").val();
+        if (!desc_value)
+        {
+            desc_value = "Some video.";
+        }
         var obj = {url: url_value, description: desc_value};
         var post_data = "data=" + JSON.stringify(obj);
         $.ajax("/videos/", {
