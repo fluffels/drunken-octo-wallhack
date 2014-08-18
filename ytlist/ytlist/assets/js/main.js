@@ -28,7 +28,7 @@ function add_video(video)
             },
             error: function(e) {
                 $("#video-" + video.id).
-                    append("<p>Could not contact the server.</p>");
+                    append("<p class='error'>Could not contact the server.</p>");
             }
         });
     });
@@ -70,7 +70,7 @@ function load_all_videos()
         },
         error: function() {
             var div = $("div#messages");
-            div.append("<p>Could not contact the server.</p>");
+            div.append("<p class='error'>Could not contact the server.</p>");
         }
     });
 }
@@ -100,11 +100,11 @@ function submit()
             }
             else
             {
-                $("div#add-messages").append("<p>Could not post video: " + message.message + "</p>");
+                $("div#add-messages").append("<p class='error'>Could not post video: " + message.message + "</p>");
             }
         },
         error: function(msg) {
-            $("div#add-messages").append("<p>Could not contact the server.</p>");
+            $("div#add-messages").append("<p class='error'>Could not contact the server.</p>");
         }
     });
 }
