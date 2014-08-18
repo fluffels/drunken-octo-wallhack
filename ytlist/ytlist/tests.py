@@ -20,14 +20,14 @@ class VideoAPITestCase(TestCase):
         v = Video.objects.get(url="retrieve")
 
     def test_post_success(self):
-        url = "https://www.youtube.com/watch?v=5nD-8euqNN4"
+        url = "5nD-8euqNN4"
         data = '{{"url": "{}"}}'.format(url)
         response = self.client.post('/videos/', {'data': data})
         message = json.loads(response.content)
         self.assertEqual(message['status'], 0)
 
     def test_post_save(self):
-        url = "https://www.youtube.com/watch?v=5nD-8euqNN4"
+        url = "5nD-8euqNN4"
         data = '{{"url": "{}"}}'.format(url)
         response = self.client.post('/videos/', {'data': data})
         message = json.loads(response.content)
@@ -54,8 +54,7 @@ class VideoAPITestCase(TestCase):
 
     def test_get(self):
         response = self.client.get('/videos/')
-        self.assertEqual(response.content,
-                         '[{"url": "retrieve", "id": 1, "description": ""}]')
+        self.assertEqual(response.status_code, 200)
 
     def test_forbidden(self):
         response = self.client.get('/videos/1/')

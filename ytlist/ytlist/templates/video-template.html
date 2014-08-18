@@ -1,7 +1,8 @@
 {% verbatim %}
 <script id="video-template" type="text/x-handlebards-template">
     <li id="video-{{id}}" class="video">
-        <a id="video-link-{{id}}" href="{{url}}">{{description}}</a>
+        <a id="video-link-{{id}}" href="#" data-youtube-id="{{url}}">{{title}}</a>
+        <p>{{description}}</p>
         <input id="video-delete-{{id}}" class="delete-button" type="button" href="#" value="Delete">
     </li>
 </script>

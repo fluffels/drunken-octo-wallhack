@@ -8,19 +8,13 @@ function on_video_link_click(e)
 {
     e.preventDefault();
     
-    var url = e.delegateTarget.getAttribute("href");
-    var re = RegExp("v=(.+)");
-    var match = re.exec(url);
-
-    if (match)
-    {
-        console.log(match[1]);
-        player.loadVideoById(match[1]);
-    }
+    var id = e.delegateTarget.getAttribute("data-youtube-id");
+    player.loadVideoById(id);
 }
 
 function add_video(video)
 {
+    video.description = video.description.split("\n")[0];
     var template = Handlebars.compile($("#video-template").html());
     var html = template(video);
     $(html).hide().appendTo($("#video-list")).fadeIn(1000);
@@ -39,6 +33,14 @@ function add_video(video)
                     append("<p>Could not contact the server.</p>");
             }
         });
+    });
+}
+
+function add_video_by_id(id)
+{
+    $.get("/videos/" + id + "/", function(msg) {
+        var video = $.parseJSON(msg);
+        add_video(video);
     });
 }
 
@@ -72,12 +74,15 @@ $(document).ready(function() {
 
     $("#submit-button").click(function() {
         var url_value = $("#url").val();
-        var desc_value = $("#desc").val();
-        if (!desc_value)
+        var re = RegExp("v=(.+)");
+        var match = re.exec(url_value);
+
+        if (match)
         {
-            desc_value = "Some video.";
+            url_value = match[1];
         }
-        var obj = {url: url_value, description: desc_value};
+
+        var obj = {url: url_value};
         var post_data = "data=" + JSON.stringify(obj);
         $.ajax("/videos/", {
             type: 'POST',
@@ -86,8 +91,7 @@ $(document).ready(function() {
                 var message = $.parseJSON(msg);
                 if (message.status === 0)
                 {
-                    obj.id = message.message;
-                    $("div#content").append(add_video(obj));
+                    add_video_by_id(message.message);
                 }
                 else
                 {

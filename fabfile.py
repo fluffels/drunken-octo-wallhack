@@ -37,6 +37,7 @@ def install():
     print('Environment appears okay, installing.')
     local('virtualenv {}'.format(env.venv_dir))
     with virtualenv():
+        local('pip install requests==2.3.0')
         local('pip install django==1.6.2')
         local('pip install django_gears==0.7')
         local('pip install gears-less==0.3.3')

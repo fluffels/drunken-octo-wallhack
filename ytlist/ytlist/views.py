@@ -15,6 +15,10 @@ def error(status, message):
     error = {"status": status, "message": message}
     return HttpResponse(json.dumps(error))
 
+def format_video(video):
+    """Format a specific video in JSON."""
+    return {"id": video.id, "url": video.url, "title": video.title, "description": video.description}
+
 def success(message=""):
     """Return a success message formatted as a JSON object."""
 
@@ -48,15 +52,11 @@ class VideoAPIView(View):
                 return error(2, "Error while parsing JSON string '{}': {}".
                                  format(json_data, e))
             if "url" in data:
-                validate_url = URLValidator()
-                try:
-                    validate_url(data["url"])
-                except ValidationError as e:
-                    return error(5, ("Incorrect URL format."))
                 video = Video()
                 video.url = data["url"]
                 if "description" in data:
                     video.description = data["description"]
+                video.fetch_details()
                 video.save()
                 return success(video.id)
             else:
@@ -67,17 +67,20 @@ class VideoAPIView(View):
         """Handle GET requests."""
 
         videos = Video.objects.all()
-        data = [{"id": o.id, "url": o.url, "description": o.description} for o in videos]
+        data = [format_video(video) for video in videos]
         response = json.dumps(data)
 
         return HttpResponse(response)
 
-def delete_video(request, id):
-    """Implements DELETE for the video API described in the README."""
-    if request.method == 'DELETE':
+class IndividualVideoAPIView(View):
+    """Implements DELETE and GET for individual videos."""
+
+    def delete(self, request, id):
         v = Video.objects.get(id=id)
         v.delete()
         return success()
-    else:
-        return HttpResponseForbidden()
+
+    def get(self, request, id):
+        v = Video.objects.get(id=id)
+        return HttpResponse(json.dumps(format_video(v)))
 
