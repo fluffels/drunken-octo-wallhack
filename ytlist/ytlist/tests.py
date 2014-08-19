@@ -56,10 +56,6 @@ class VideoAPITestCase(TestCase):
         response = self.client.get('/videos/')
         self.assertEqual(response.status_code, 200)
 
-    def test_forbidden(self):
-        response = self.client.get('/videos/1/')
-        self.assertIsInstance(response, HttpResponseForbidden)
-
     def test_delete(self):
         v2 = Video()
         v2.url = "delete"
