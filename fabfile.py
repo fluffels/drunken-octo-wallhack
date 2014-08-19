@@ -13,6 +13,8 @@ env.proj_dir = 'ytlist/'
 env.venv_dir = 'venv/'
 env.venv_path = abspath(join(env.venv_dir, 'bin/activate/'))
 
+env.bower = 'node_modules/bower/bin/bower --config.interactive=false'
+
 env.bower_dir = 'bower_components/'
 env.assets_dir = join(env.proj_dir, 'ytlist/assets/')
 env.symlinks = [{'src': join(env.bower_dir, 'bootstrap/less/'),
@@ -42,9 +44,9 @@ def install():
         local('pip install django_gears==0.7')
         local('pip install gears-less==0.3.3')
         local('npm install bower')
-        local('bower install bootstrap#3.1.1')
-        local('bower install jquery-cookie#1.4.1')
-        local('bower install handlebars#1.3.0')
+        local('{} install bootstrap#3.1.1'.format(env.bower))
+        local('{} install jquery-cookie#1.4.1'.format(env.bower))
+        local('{} install handlebars#1.3.0'.format(env.bower))
         for pair in env.symlinks:
             try:
                 symlink(abspath(pair['src']), abspath(pair['dst']))
